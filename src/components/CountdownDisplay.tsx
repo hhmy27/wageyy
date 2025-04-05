@@ -41,10 +41,10 @@ export default function CountdownDisplay({endTime}: CountdownDisplayProps) {
     return (
         <Card>
             <CardHeader>
-                <CardTitle className="text-lg font-semibold text-center">Time Until End of Work</CardTitle>
+                <CardTitle className="text-lg font-semibold text-center">Time Until End of Work 🕒</CardTitle>
             </CardHeader>
             <CardContent>
-                <div className="text-4xl font-bold text-center text-blue-600">{timeLeft}</div>
+                <div className="text-4xl font-bold text-center text-gray-900">{timeLeft}</div>
             </CardContent>
         </Card>
     )
