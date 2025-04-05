@@ -22,7 +22,7 @@ export default function TimeInput({startTime, endTime, onStartTimeChange, onEndT
         <div className="flex flex-col space-y-4">
             <div className="flex flex-col space-y-2">
                 <label htmlFor="startTime" className="text-sm font-medium text-gray-700">
-                    开始时间
+                    Start Time
                 </label>
                 <input
                     type="time"
@@ -34,7 +34,7 @@ export default function TimeInput({startTime, endTime, onStartTimeChange, onEndT
             </div>
             <div className="flex flex-col space-y-2">
                 <label htmlFor="endTime" className="text-sm font-medium text-gray-700">
-                    结束时间
+                    End Time
                 </label>
                 <input
                     type="time"

@@ -5,10 +5,10 @@ import {useEffect, useState} from 'react'
 interface EarningsDisplayProps {
     startTime: string
     endTime: string
-    hourlyWage: string
+    dailyWage: string
 }
 
-export default function EarningsDisplay({startTime, endTime, hourlyWage}: EarningsDisplayProps) {
+export default function EarningsDisplay({startTime, endTime, dailyWage}: EarningsDisplayProps) {
     const [earnings, setEarnings] = useState<number>(0)
 
     useEffect(() => {
@@ -16,7 +16,7 @@ export default function EarningsDisplay({startTime, endTime, hourlyWage}: Earnin
             const now = new Date()
             const [startHours, startMinutes] = startTime.split(':')
             const [endHours, endMinutes] = endTime.split(':')
-            const wage = parseFloat(hourlyWage) || 0
+            const wage = parseFloat(dailyWage) || 0
 
             const start = new Date()
             start.setHours(parseInt(startHours, 10))
@@ -28,39 +28,40 @@ export default function EarningsDisplay({startTime, endTime, hourlyWage}: Earnin
             end.setMinutes(parseInt(endMinutes, 10))
             end.setSeconds(0)
 
-            // 如果结束时间小于开始时间，说明是第二天
+            // If end time is earlier than start time, it means it's the next day
             if (end < start) {
                 end.setDate(end.getDate() + 1)
             }
 
-            // 如果当前时间小于开始时间，说明还没开始工作
+            // If current time is earlier than start time, work hasn't started yet
             if (now < start) {
                 setEarnings(0)
                 return
             }
 
-            // 如果当前时间大于结束时间，说明已经下班
+            // If current time is later than end time, work is finished
             if (now > end) {
-                const totalHours = (end.getTime() - start.getTime()) / (1000 * 60 * 60)
-                setEarnings(totalHours * wage)
+                setEarnings(wage)
                 return
             }
 
-            // 计算当前已工作的时间
+            // Calculate current earnings based on worked hours
+            const totalWorkHours = (end.getTime() - start.getTime()) / (1000 * 60 * 60)
             const workedHours = (now.getTime() - start.getTime()) / (1000 * 60 * 60)
-            setEarnings(workedHours * wage)
+            const progress = workedHours / totalWorkHours
+            setEarnings(wage * progress)
         }
 
         calculateEarnings()
         const timer = setInterval(calculateEarnings, 1000)
 
         return () => clearInterval(timer)
-    }, [startTime, endTime, hourlyWage])
+    }, [startTime, endTime, dailyWage])
 
     return (
         <div className="text-center">
-            <h2 className="text-lg font-semibold text-gray-700">今日已赚</h2>
-            <div className="mt-2 text-4xl font-bold text-green-600">¥{earnings.toFixed(2)}</div>
+            <h2 className="text-lg font-semibold text-gray-700">Today's Earnings</h2>
+            <div className="mt-2 text-4xl font-bold text-green-600">${earnings.toFixed(2)}</div>
         </div>
     )
 }

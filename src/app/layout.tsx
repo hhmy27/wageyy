@@ -5,13 +5,13 @@ import './globals.css'
 const inter = Inter({subsets: ['latin']})
 
 export const metadata: Metadata = {
-    title: 'Wageyy - 工资计算器',
-    description: '实时计算你的工资和下班倒计时'
+    title: 'Wageyy - Salary Calculator',
+    description: 'Real-time salary calculation and countdown to end of work'
 }
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
     return (
-        <html lang="zh">
+        <html lang="en">
             <body className={inter.className}>{children}</body>
         </html>
     )

@@ -3,24 +3,24 @@
 import {ChangeEvent} from 'react'
 
 interface WageInputProps {
-    hourlyWage: string
+    dailyWage: string
     onWageChange: (wage: string) => void
 }
 
-export default function WageInput({hourlyWage, onWageChange}: WageInputProps) {
+export default function WageInput({dailyWage, onWageChange}: WageInputProps) {
     const handleWageChange = (e: ChangeEvent<HTMLInputElement>) => {
         onWageChange(e.target.value)
     }
 
     return (
         <div className="flex flex-col space-y-2">
-            <label htmlFor="hourlyWage" className="text-sm font-medium text-gray-700">
-                时薪（元/小时）
+            <label htmlFor="dailyWage" className="text-sm font-medium text-gray-700">
+                Daily Rate (USD/day)
             </label>
             <input
                 type="number"
-                id="hourlyWage"
-                value={hourlyWage}
+                id="dailyWage"
+                value={dailyWage}
                 onChange={handleWageChange}
                 min="0"
                 step="0.01"

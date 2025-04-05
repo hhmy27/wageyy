@@ -18,7 +18,7 @@ export default function CountdownDisplay({endTime}: CountdownDisplayProps) {
             end.setMinutes(parseInt(minutes, 10))
             end.setSeconds(0)
 
-            // 如果结束时间小于当前时间，说明是第二天
+            // If end time is earlier than current time, it means it's the next day
             if (end < now) {
                 end.setDate(end.getDate() + 1)
             }
@@ -39,7 +39,7 @@ export default function CountdownDisplay({endTime}: CountdownDisplayProps) {
 
     return (
         <div className="text-center">
-            <h2 className="text-lg font-semibold text-gray-700">距离下班还有</h2>
+            <h2 className="text-lg font-semibold text-gray-700">Time Until End of Work</h2>
             <div className="mt-2 text-4xl font-bold text-blue-600">{timeLeft}</div>
         </div>
     )
