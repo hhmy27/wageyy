@@ -62,7 +62,7 @@ export default function EarningsDisplay({startTime, endTime, dailyWage}: Earning
     return (
         <Card>
             <CardHeader>
-                <CardTitle className="text-lg font-semibold text-center">Today's Earnings 💵</CardTitle>
+                <CardTitle className="text-lg font-semibold text-center">Today&apos;s Earnings 💵</CardTitle>
             </CardHeader>
             <CardContent>
                 <div className="text-4xl font-bold text-center text-[#85bb65]">${earnings.toFixed(2)}</div>
