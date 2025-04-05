@@ -1,6 +1,7 @@
 'use client'
 
 import {useEffect, useState} from 'react'
+import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card'
 
 interface CountdownDisplayProps {
     endTime: string
@@ -38,9 +39,13 @@ export default function CountdownDisplay({endTime}: CountdownDisplayProps) {
     }, [endTime])
 
     return (
-        <div className="text-center">
-            <h2 className="text-lg font-semibold text-gray-700">Time Until End of Work</h2>
-            <div className="mt-2 text-4xl font-bold text-blue-600">{timeLeft}</div>
-        </div>
+        <Card>
+            <CardHeader>
+                <CardTitle className="text-lg font-semibold text-center">Time Until End of Work</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <div className="text-4xl font-bold text-center text-blue-600">{timeLeft}</div>
+            </CardContent>
+        </Card>
     )
 }

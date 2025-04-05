@@ -1,6 +1,8 @@
 'use client'
 
 import {ChangeEvent} from 'react'
+import {Label} from '@/components/ui/label'
+import {Input} from '@/components/ui/input'
 
 interface WageInputProps {
     dailyWage: string
@@ -13,19 +15,9 @@ export default function WageInput({dailyWage, onWageChange}: WageInputProps) {
     }
 
     return (
-        <div className="flex flex-col space-y-2">
-            <label htmlFor="dailyWage" className="text-sm font-medium text-gray-700">
-                Daily Rate (USD/day)
-            </label>
-            <input
-                type="number"
-                id="dailyWage"
-                value={dailyWage}
-                onChange={handleWageChange}
-                min="0"
-                step="0.01"
-                className="rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-            />
+        <div className="flex flex-col space-y-1.5">
+            <Label htmlFor="dailyWage">Daily Rate (USD/day)</Label>
+            <Input type="number" id="dailyWage" value={dailyWage} onChange={handleWageChange} min="0" step="0.01" placeholder="Enter your daily rate" />
         </div>
     )
 }
