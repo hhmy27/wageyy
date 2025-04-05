@@ -33,7 +33,7 @@ export default function Home() {
                 </Card>
 
                 <div className="grid gap-6 md:grid-cols-2">
-                    <CountdownDisplay endTime={endTime} />
+                    <CountdownDisplay startTime={startTime} endTime={endTime} />
                     <EarningsDisplay startTime={startTime} endTime={endTime} dailyWage={dailyWage} />
                 </div>
             </div>

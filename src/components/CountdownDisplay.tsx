@@ -5,26 +5,42 @@ import {Card, CardContent, CardHeader, CardTitle} from './ui/card'
 
 interface CountdownDisplayProps {
     endTime: string
+    startTime: string
 }
 
-export default function CountdownDisplay({endTime}: CountdownDisplayProps) {
+export default function CountdownDisplay({endTime, startTime}: CountdownDisplayProps) {
     const [timeLeft, setTimeLeft] = useState<string>('')
+    const [isWorkTime, setIsWorkTime] = useState<boolean>(true)
 
     useEffect(() => {
         const calculateTimeLeft = () => {
             const now = new Date()
-            const [hours, minutes] = endTime.split(':')
+            const [endHours, endMinutes] = endTime.split(':')
+            const [startHours, startMinutes] = startTime.split(':')
+
             const end = new Date()
-            end.setHours(parseInt(hours, 10))
-            end.setMinutes(parseInt(minutes, 10))
+            end.setHours(parseInt(endHours, 10))
+            end.setMinutes(parseInt(endMinutes, 10))
             end.setSeconds(0)
 
-            // If end time is earlier than current time, it means it's the next day
-            if (end < now) {
-                end.setDate(end.getDate() + 1)
+            const start = new Date()
+            start.setHours(parseInt(startHours, 10))
+            start.setMinutes(parseInt(startMinutes, 10))
+            start.setSeconds(0)
+
+            // 如果当前时间超过了下班时间，计算到明天上班的时间
+            if (now > end) {
+                start.setDate(start.getDate() + 1)
+                setIsWorkTime(false)
+            } else if (now < start) {
+                setIsWorkTime(false)
+            } else {
+                setIsWorkTime(true)
             }
 
-            const diff = end.getTime() - now.getTime()
+            const targetTime = isWorkTime ? end : start
+            const diff = targetTime.getTime() - now.getTime()
+
             const hoursLeft = Math.floor(diff / (1000 * 60 * 60))
             const minutesLeft = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
             const secondsLeft = Math.floor((diff % (1000 * 60)) / 1000)
@@ -36,12 +52,12 @@ export default function CountdownDisplay({endTime}: CountdownDisplayProps) {
         const timer = setInterval(calculateTimeLeft, 1000)
 
         return () => clearInterval(timer)
-    }, [endTime])
+    }, [endTime, startTime, isWorkTime])
 
     return (
         <Card>
             <CardHeader>
-                <CardTitle className="text-lg font-semibold text-center">Time Until End of Work 🕒</CardTitle>
+                <CardTitle className="text-lg font-semibold text-center">{isWorkTime ? 'Time Until End of Work 🕒' : 'Time Until Start of Work 🌅'}</CardTitle>
             </CardHeader>
             <CardContent>
                 <div className="text-4xl font-bold text-center text-gray-900">{timeLeft}</div>
